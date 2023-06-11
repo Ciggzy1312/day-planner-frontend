@@ -1,5 +1,5 @@
 "use client"
-import { useState } from "react";
+import { Dispatch, SetStateAction, useState } from "react";
 import { Button } from "@/components/ui/button"
 import {
     Dialog,
@@ -16,13 +16,6 @@ import { SelectDuration, SelectTag } from "./select";
 import { TaskType } from "@/types/types";
 import axios from "axios";
 import { DialogClose } from "@radix-ui/react-dialog";
-
-const labels = [
-    {
-        name: "Work",
-        color: "text-blue-500"
-    }
-]
 
 const priorities = ["Low", "Medium", "High"]
 
@@ -53,7 +46,7 @@ export function TaskCard({ task }: { task: TaskType }) {
     )
 }
 
-export function AddTaskCard() {
+export function AddTaskCard({ setTaskList }: { setTaskList: Dispatch<SetStateAction<TaskType[]>> }) {
 
     const [title, setTitle] = useState("");
     const [tag, setTag] = useState("");
@@ -81,6 +74,9 @@ export function AddTaskCard() {
             }, { withCredentials: true })
 
             console.log(res.data);
+
+            setTaskList((prev) => [...prev, res.data.task]);
+
         } catch (error: any) {
             console.log(error.response.data);
         }
