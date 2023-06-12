@@ -6,23 +6,25 @@ import { useStore } from "@/store/store";
 const weekdays = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
 const months = ["January", "Febuary", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 
-export default function TaskBoard() {
+export default function TaskBoard({ d }: { d: number }) {
 
-    const [date, setDate] = useState(new Date().getDate().toString());
-    const [day, setDay] = useState(weekdays[new Date().getDay()]);
-    const [month, setMonth] = useState(months[new Date().getMonth()]);
+    const tasks = useStore((state) => state.tasks.filter((task) => new Date(task.date).getDate() === new Date(d).getDate()));
 
-    const [taskList, setTaskList] = useState(useStore().tasks);
+    const [date, setDate] = useState(new Date(d).getDate().toString());
+    const [day, setDay] = useState(weekdays[new Date(d).getDay()]);
+    const [month, setMonth] = useState(months[new Date(d).getMonth()]);
+
+    const [taskList, setTaskList] = useState(tasks);
 
     return (
-        <div className="px-40 py-20">
+        <div className="px-10 py-20">
             <div className="">
                 <h1 className="text-2xl text-gray-800 font-semibold">{day}</h1>
                 <h3 className="text-gray-400 font-medium">{month + " " + date}</h3>
             </div>
 
             <div className="">
-                <AddTaskCard setTaskList={setTaskList} />
+                <AddTaskCard setTaskList={setTaskList} date={d} />
             </div>
 
             <div className="">

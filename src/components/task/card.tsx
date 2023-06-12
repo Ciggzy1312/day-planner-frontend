@@ -46,7 +46,7 @@ export function TaskCard({ task }: { task: TaskType }) {
     )
 }
 
-export function AddTaskCard({ setTaskList }: { setTaskList: Dispatch<SetStateAction<TaskType[]>> }) {
+export function AddTaskCard({ setTaskList, date }: { setTaskList: Dispatch<SetStateAction<TaskType[]>>, date: number }) {
 
     const [title, setTitle] = useState("");
     const [tag, setTag] = useState("");
@@ -67,7 +67,7 @@ export function AddTaskCard({ setTaskList }: { setTaskList: Dispatch<SetStateAct
                 label: tag,
                 plannedTime: duration,
                 priority,
-                date: new Date().toString(),
+                date: new Date(date).toString(),
                 actualTime: "00:00",
                 isTimeboxed: false,
                 isCompleted: false,
