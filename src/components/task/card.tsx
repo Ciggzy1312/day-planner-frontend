@@ -16,12 +16,28 @@ import { SelectDuration, SelectTag } from "./select";
 import { TaskType } from "@/types/types";
 import axios from "axios";
 import { DialogClose } from "@radix-ui/react-dialog";
+import { CheckIcon } from "@/static/icons/Check";
 
 const priorities = ["Low", "Medium", "High"]
 
 export function TaskCard({ task }: { task: TaskType }) {
 
     const [isCompleted, setIsCompleted] = useState(task.isCompleted);
+
+    const handleComplete = async () => {
+        try {
+
+            setIsCompleted(!isCompleted);
+
+            const res = await axios.put(`/api/task/${task.id}/complete`, {
+                isCompleted: !isCompleted,
+            }, { withCredentials: true });
+
+        } catch (error: any) {
+            console.log(error.response.data);
+            setIsCompleted(!isCompleted);
+        }
+    };
 
     return (
         <div className="my-6 p-4 w-80 border-2 border-gray-100 rounded-md">
@@ -33,14 +49,16 @@ export function TaskCard({ task }: { task: TaskType }) {
                 <h1 className="">{task.title}</h1>
             </div>
 
-            <div className="">
-                <div className="inline-block text-gray-400 text-xs font-medium mr-2">
+            <div className="flex justify-between">
+                <div className="">
+                    {isCompleted
+                        ? <div onClick={handleComplete}><CheckIcon className="w-[1.5rem] font-bold text-green-500 cursor-pointer" /></div>
+                        : <div onClick={handleComplete}><CheckIcon className="w-[1.5rem] text-gray-500 cursor-pointer hover:text-green-500" /></div>}
+                </div>
+
+                <div className="inline-block text-gray-400 text-xs font-medium mr-2 self-center">
                     <h1><span className="text-yellow-500"># </span>{task.label}</h1>
                 </div>
-            </div>
-
-            <div className="my-2 text-sm">
-                {isCompleted ? "Completed" : "Not Completed"}
             </div>
         </div>
     )
