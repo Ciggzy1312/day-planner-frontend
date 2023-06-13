@@ -17,12 +17,17 @@ import { TaskType } from "@/types/types";
 import axios from "axios";
 import { DialogClose } from "@radix-ui/react-dialog";
 import { CheckIcon } from "@/static/icons/Check";
+import { PauseIcon, PlayIcon } from "@/static/icons/TimerIcon";
+import { BacklogIcon } from "@/static/icons/BacklogIcon";
+import { InfoIcon } from "@/static/icons/InfoIcon";
 
 const priorities = ["Low", "Medium", "High"]
 
 export function TaskCard({ task }: { task: TaskType }) {
 
     const [isCompleted, setIsCompleted] = useState(task.isCompleted);
+    const [isClicked, setIsClicked] = useState(false);
+    const [isPlaying, setIsPlaying] = useState(false);
 
     const handleComplete = async () => {
         try {
@@ -39,27 +44,51 @@ export function TaskCard({ task }: { task: TaskType }) {
         }
     };
 
+    const handlePlaying = async () => {
+        setIsPlaying(!isPlaying);
+    };
+
     return (
         <div className="my-6 p-4 w-80 border-2 border-gray-100 rounded-md">
-            <div className="flex justify-between">
-                <div className="text-sm">{task.priority}</div>
-                <div className="text-xs self-center bg-gray-100 rounded-md px-2 font-semibold text-gray-400">{task.plannedTime}</div>
-            </div>
-            <div className="my-2">
-                <h1 className="">{task.title}</h1>
-            </div>
-
-            <div className="flex justify-between">
-                <div className="">
-                    {isCompleted
-                        ? <div onClick={handleComplete}><CheckIcon className="w-[1.5rem] font-bold text-green-500 cursor-pointer" /></div>
-                        : <div onClick={handleComplete}><CheckIcon className="w-[1.5rem] text-gray-500 cursor-pointer hover:text-green-500" /></div>}
+            <div className="" onClick={() => setIsClicked(!isClicked)}>
+                <div className="flex justify-between">
+                    <div className="text-sm">{task.priority}</div>
+                    <div className="text-xs self-center bg-gray-100 rounded-md px-2 font-semibold text-gray-400">{task.plannedTime}</div>
+                </div>
+                <div className="my-2">
+                    <h1 className="">{task.title}</h1>
                 </div>
 
-                <div className="inline-block text-gray-400 text-xs font-medium mr-2 self-center">
-                    <h1><span className="text-yellow-500"># </span>{task.label}</h1>
+                <div className="flex justify-between">
+                    <div className="">
+                        {isCompleted
+                            ? <div onClick={handleComplete}><CheckIcon className="w-[1.5rem] font-bold text-green-500 cursor-pointer" /></div>
+                            : <div onClick={handleComplete}><CheckIcon className="w-[1.5rem] text-gray-500 cursor-pointer hover:text-green-500" /></div>}
+                    </div>
+
+                    <div className="inline-block text-gray-400 text-xs font-medium mr-2 self-center">
+                        <h1><span className="text-yellow-500"># </span>{task.label}</h1>
+                    </div>
                 </div>
             </div>
+
+            {isClicked &&
+                <div className="mt-2 pt-2 flex border-t border-gray-200 text-sky-300">
+                    <div className="">
+                        <div className=""><BacklogIcon className="w-[1.5rem]" /></div>
+                    </div>
+
+                    <div className="">
+                        <div className=""><InfoIcon className="mx-2 w-[1.5rem]" /></div>
+                    </div>
+
+                    <div className="">
+                        {isPlaying
+                            ? <div onClick={handlePlaying}><PauseIcon className="w-[1.5rem]" /></div>
+                            : <div onClick={handlePlaying}><PlayIcon className="w-[1.5rem]" /></div>}
+                    </div>
+                </div>
+            }
         </div>
     )
 }
