@@ -1,3 +1,4 @@
+"use client"
 import {
     Select,
     SelectContent,
@@ -6,9 +7,13 @@ import {
     SelectTrigger,
     SelectValue,
 } from "@/components/ui/select"
-import { Dispatch, SetStateAction } from "react"
+import { useStore } from "@/store/store";
+import { Dispatch, SetStateAction, useState } from "react"
 
 export function SelectTag({ setTag }: { setTag: Dispatch<SetStateAction<string>> }) {
+
+    const [labels, setLabels] = useState(useStore((state) => state.labels));
+
     return (
         <Select onValueChange={(val) => setTag(val)}>
             <SelectTrigger className="w-[180px] mt-2">
@@ -16,9 +21,9 @@ export function SelectTag({ setTag }: { setTag: Dispatch<SetStateAction<string>>
             </SelectTrigger>
             <SelectContent>
                 <SelectGroup>
-                    <SelectItem value="work">Work</SelectItem>
-                    <SelectItem value="personal">Personal</SelectItem>
-                    <SelectItem value="routine">Routine</SelectItem>
+                    {labels.map((label, index) => (
+                        <SelectItem value={label.name.toLowerCase() + "-" + label.color} key={index}>{label.name}</SelectItem>
+                    ))}
                 </SelectGroup>
             </SelectContent>
         </Select>

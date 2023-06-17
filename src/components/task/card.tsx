@@ -29,6 +29,12 @@ export function TaskCard({ task }: { task: TaskType }) {
     const [isClicked, setIsClicked] = useState(false);
     const [isPlaying, setIsPlaying] = useState(false);
 
+    const formatLabel = (label: string) => {
+        return label.split("-");
+    };
+
+    const taskLabel = formatLabel(task.label);
+
     const handleComplete = async () => {
         try {
 
@@ -67,7 +73,7 @@ export function TaskCard({ task }: { task: TaskType }) {
                     </div>
 
                     <div className="inline-block text-gray-400 text-xs font-medium mr-2 self-center">
-                        <h1><span className="text-yellow-500"># </span>{task.label}</h1>
+                        <h1><span style={{ color: taskLabel[1] }}># </span>{taskLabel[0]}</h1>
                     </div>
                 </div>
             </div>
