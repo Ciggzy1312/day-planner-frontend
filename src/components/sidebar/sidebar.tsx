@@ -1,9 +1,15 @@
+"use client"
 import { BacklogIcon } from "@/static/icons/BacklogIcon";
 import { AddLabelIcon, HomeIcon, SomedayIcon, TodayIcon } from "@/static/icons/SidebarIcons";
 import { Dialog, DialogTrigger, DialogContent } from "../ui/dialog";
 import { AddLabel, Labels } from "./label";
+import { useState } from "react";
+import { useStore } from "@/store/store";
 
 export function Sidebar() {
+
+    const [labels, setLabels] = useState(useStore(state => state.labels));
+
     return (
         <div className="w-[12rem] px-4 py-4">
             <h1 className="text-xl text-gray-800 font-semibold mb-4">Sidebar</h1>
@@ -59,12 +65,12 @@ export function Sidebar() {
                         </DialogTrigger>
 
                         <DialogContent>
-                            <AddLabel />
+                            <AddLabel setLabels={setLabels} />
                         </DialogContent>
                     </Dialog>
                 </div>
 
-                <Labels />
+                <Labels labels={labels} />
             </div>
         </div>
     )

@@ -8,18 +8,14 @@ import {
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { DialogClose } from "@radix-ui/react-dialog"
-import { useState } from "react"
+import { Dispatch, SetStateAction, useState } from "react"
 import { Button } from "@/components/ui/button"
 import axios from "axios"
-import { useStore } from "@/store/store"
 import { LabelType } from "@/types/types"
 
 const colors = ["#F87171", "#FBBF24", "#34D399", "#60A5FA", "#A78BFA", "#F472B6", "#FCD34D", "#6EE7B7", "#93C5FD", "#D1D5DB"];
 
-export const Labels = () => {
-
-    const [labels, setLabels] = useState(useStore(state => state.labels));
-
+export const Labels = ({ labels }: { labels: LabelType[] }) => {
     return (
         <div className="">
             {labels.map((label: LabelType, index: number) => (
@@ -31,7 +27,7 @@ export const Labels = () => {
     )
 }
 
-export function AddLabel() {
+export function AddLabel({ setLabels }: { setLabels: Dispatch<SetStateAction<LabelType[]>> }) {
 
     const [name, setName] = useState("");
     const [color, setColor] = useState("");
@@ -43,7 +39,9 @@ export function AddLabel() {
                 color,
             }, { withCredentials: true });
 
-            console.log(res.data);
+            if (res.status === 201) {
+                setLabels((prev) => [...prev, res.data.label]);
+            }
 
         } catch (error: any) {
             console.log(error.response.data);
