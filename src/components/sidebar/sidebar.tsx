@@ -1,7 +1,7 @@
 import { BacklogIcon } from "@/static/icons/BacklogIcon";
 import { AddLabelIcon, HomeIcon, SomedayIcon, TodayIcon } from "@/static/icons/SidebarIcons";
 import { Dialog, DialogTrigger, DialogContent } from "../ui/dialog";
-import { AddLabel } from "./label";
+import { AddLabel, Labels } from "./label";
 
 export function Sidebar() {
     return (
@@ -64,21 +64,7 @@ export function Sidebar() {
                     </Dialog>
                 </div>
 
-                <div className="">
-                    <ul className="text-gray-600 text-sm">
-                        <li className="mb-1 py-1 rounded px-2 cursor-pointer hover:bg-gray-100">
-                            <div className="flex items-center space-x-3"><span className="text-red-500 font-semibold">#&nbsp;&nbsp;</span>Work</div>
-                        </li>
-
-                        <li className="mb-1 py-1 rounded px-2 cursor-pointer hover:bg-gray-100">
-                            <div className="flex items-center space-x-3"><span className="text-purple-500 font-semibold">#&nbsp;&nbsp;</span>Personal</div>
-                        </li>
-
-                        <li className="mb-1 py-1 rounded px-2 cursor-pointer hover:bg-gray-100">
-                            <div className="flex items-center space-x-3"><span className="text-yellow-500 font-semibold">#&nbsp;&nbsp;</span> Routine</div>
-                        </li>
-                    </ul>
-                </div>
+                <Labels />
             </div>
         </div>
     )

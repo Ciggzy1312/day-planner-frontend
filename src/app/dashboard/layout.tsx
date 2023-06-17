@@ -20,6 +20,16 @@ async function getTasks() {
     }
 }
 
+async function getLabels() {
+    try {
+        const cookie = cookies().get('token')?.value;
+        const response = await axios.get("http://localhost:5000/api/label", { headers: { cookie }, withCredentials: true });
+        return response.data;
+    } catch (error: any) {
+        return error.response.data;
+    }
+}
+
 export default async function DashboardLayout({
     children,
 }: {
@@ -27,13 +37,14 @@ export default async function DashboardLayout({
 }) {
 
     const tasks = await getTasks();
+    const labels = await getLabels();
 
-    useStore.setState({ tasks: tasks.tasks });
+    useStore.setState({ tasks: tasks.tasks, labels: labels.labels });
     console.log("Working");
 
     return (
         <>
-            <StoreInitializer tasks={tasks.tasks} />
+            <StoreInitializer tasks={tasks.tasks} labels={labels.labels} />
             <div className='flex'>
                 <div className=''>
                     <Sidebar />

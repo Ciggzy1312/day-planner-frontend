@@ -3,14 +3,14 @@
 import { useRef } from "react";
 
 import { useStore } from "@/store/store";
-import { TaskType } from "@/types/types";
+import { LabelType, TaskType } from "@/types/types";
 
-export default function StoreInitializer({ tasks }: { tasks: TaskType[] }) {
+export default function StoreInitializer({ tasks, labels }: { tasks: TaskType[], labels: LabelType[] }) {
 
     const initialized = useRef(false);
 
     if (!initialized.current) {
-        useStore.setState({ tasks });
+        useStore.setState({ tasks, labels });
         initialized.current = true;
     }
 

@@ -11,8 +11,25 @@ import { DialogClose } from "@radix-ui/react-dialog"
 import { useState } from "react"
 import { Button } from "@/components/ui/button"
 import axios from "axios"
+import { useStore } from "@/store/store"
+import { LabelType } from "@/types/types"
 
 const colors = ["#F87171", "#FBBF24", "#34D399", "#60A5FA", "#A78BFA", "#F472B6", "#FCD34D", "#6EE7B7", "#93C5FD", "#D1D5DB"];
+
+export const Labels = () => {
+
+    const [labels, setLabels] = useState(useStore(state => state.labels));
+
+    return (
+        <div className="">
+            {labels.map((label: LabelType, index: number) => (
+                <div className="text-gray-600 text-sm mb-1 py-1 rounded px-2 cursor-pointer hover:bg-gray-100" key={index}>
+                    <div className="flex items-center space-x-3"><span style={{ color: label.color }} className="font-semibold">#&nbsp;&nbsp;</span>{label.name}</div>
+                </div>
+            ))}
+        </div>
+    )
+}
 
 export function AddLabel() {
 
