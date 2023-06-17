@@ -17,7 +17,7 @@ export default function TaskBoard({ d }: { d: number }) {
     const [taskList, setTaskList] = useState(tasks);
 
     return (
-        <div className="px-10 py-20">
+        <div className="px-10 py-4">
             <div className="">
                 <h1 className="text-2xl text-gray-800 font-semibold">{day}</h1>
                 <h3 className="text-gray-400 font-medium">{month + " " + date}</h3>
