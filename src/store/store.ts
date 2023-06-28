@@ -3,10 +3,12 @@ import { create } from "zustand";
 
 type StateType = {
     tasks: TaskType[]
-    labels: LabelType[]
+    labels: LabelType[],
+    selectedTask: TaskType | null,
 }
 
 export const useStore = create<StateType>((set) => ({
     tasks: [],
     labels: [],
+    selectedTask: null,
 }));

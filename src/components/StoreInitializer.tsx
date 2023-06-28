@@ -10,7 +10,7 @@ export default function StoreInitializer({ tasks, labels }: { tasks: TaskType[],
     const initialized = useRef(false);
 
     if (!initialized.current) {
-        useStore.setState({ tasks, labels });
+        useStore.setState({ tasks, labels, selectedTask: null });
         initialized.current = true;
     }
 

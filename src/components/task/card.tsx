@@ -38,15 +38,19 @@ export function TaskCard({ task }: { task: TaskType }) {
     const handleComplete = async () => {
         try {
 
+            setIsClicked(false);
             setIsCompleted(!isCompleted);
 
             const res = await axios.put(`/api/task/${task.id}/complete`, {
                 isCompleted: !isCompleted,
             }, { withCredentials: true });
 
+
         } catch (error: any) {
+            setIsClicked(false);
             console.log(error.response.data);
             setIsCompleted(!isCompleted);
+
         }
     };
 
@@ -56,7 +60,7 @@ export function TaskCard({ task }: { task: TaskType }) {
 
     return (
         <div className="my-6 p-4 w-80 border-2 border-gray-100 rounded-md">
-            <div className="" onClick={() => setIsClicked(!isClicked)}>
+            <div className="">
                 <div className="flex justify-between">
                     <div className="text-sm">{task.priority}</div>
                     <div className="text-xs self-center bg-gray-100 rounded-md px-2 font-semibold text-gray-400">{task.plannedTime}</div>
@@ -78,7 +82,7 @@ export function TaskCard({ task }: { task: TaskType }) {
                 </div>
             </div>
 
-            {isClicked &&
+            {/*isClicked &&
                 <div className="mt-2 pt-2 flex border-t border-gray-200 text-sky-300">
                     <div className="">
                         <div className=""><BacklogIcon className="w-[1.5rem]" /></div>
@@ -94,12 +98,12 @@ export function TaskCard({ task }: { task: TaskType }) {
                             : <div onClick={handlePlaying}><PlayIcon className="w-[1.5rem]" /></div>}
                     </div>
                 </div>
-            }
+                        */}
         </div>
     )
 }
 
-export function AddTaskCard({ setTaskList, date }: { setTaskList: Dispatch<SetStateAction<TaskType[]>>, date: number }) {
+export function AddTaskCard({ setTaskList, date }: { setTaskList: Dispatch<SetStateAction<TaskType[]>>, date: string }) {
 
     const [title, setTitle] = useState("");
     const [tag, setTag] = useState("");
@@ -120,7 +124,7 @@ export function AddTaskCard({ setTaskList, date }: { setTaskList: Dispatch<SetSt
                 label: tag,
                 plannedTime: duration,
                 priority,
-                date: new Date(date).toString(),
+                date,
                 actualTime: "00:00",
                 isTimeboxed: false,
                 isCompleted: false,
