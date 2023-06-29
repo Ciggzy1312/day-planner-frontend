@@ -12,14 +12,26 @@ import { Dispatch, SetStateAction, useState } from "react"
 import { Button } from "@/components/ui/button"
 import axios from "axios"
 import { LabelType } from "@/types/types"
+import { useStore } from "@/store/store"
 
 const colors = ["#F87171", "#FBBF24", "#34D399", "#60A5FA", "#A78BFA", "#F472B6", "#FCD34D", "#6EE7B7", "#93C5FD", "#D1D5DB"];
 
 export const Labels = ({ labels }: { labels: LabelType[] }) => {
+
+    const selectedLabel = useStore((state) => state.selectedLabel);
+
+    const handleLabel = (label: LabelType) => {
+        if (selectedLabel && selectedLabel.name === label.name) {
+            useStore.setState({ selectedLabel: null });
+        } else {
+            useStore.setState({ selectedLabel: label });
+        }
+    };
+
     return (
         <div className="">
             {labels.map((label: LabelType, index: number) => (
-                <div className="text-gray-600 text-sm mb-1 py-1 rounded px-2 cursor-pointer hover:bg-gray-100" key={index}>
+                <div className={`text-gray-600 text-sm mb-1 py-1 rounded px-2 cursor-pointer ${label.name == selectedLabel?.name ? "bg-gray-100" : "hover:bg-gray-100"}`} key={index} onClick={() => handleLabel(label)}>
                     <div className="flex items-center space-x-3"><span style={{ color: label.color }} className="font-semibold">#&nbsp;&nbsp;</span>{label.name}</div>
                 </div>
             ))}

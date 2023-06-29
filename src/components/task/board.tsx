@@ -1,5 +1,5 @@
 "use client"
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { AddTaskCard, TaskCard } from "./card";
 import { useStore } from "@/store/store";
 import Link from "next/link";
@@ -33,9 +33,22 @@ export default function TaskBoard({ d }: { d: number }) {
         return formattedToday;
     };
 
-    const tasks = useStore((state) => state.tasks.filter((task) => task.date === formatDate(d)));
+    const selectedLabel = useStore((state) => state.selectedLabel);
+
+    const tasks = useStore((state) => state.tasks.filter((task) => {
+        if (selectedLabel) {
+            return task.date === formatDate(d) && task.label === selectedLabel?.name.toLowerCase() + '-' + selectedLabel?.color;
+        }
+
+        return task.date === formatDate(d);
+    }));
 
     const [taskList, setTaskList] = useState(tasks);
+
+    useEffect(() => {
+        setTaskList(tasks);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [selectedLabel]);
 
     return (
         <div className="px-10 py-4">
