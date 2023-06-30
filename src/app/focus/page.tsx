@@ -2,8 +2,7 @@ import FocusBoard from "@/components/focus/board";
 import TaskDetails from "@/components/focus/task";
 import axios from "axios";
 import { cookies } from "next/headers";
-import Link from "next/link";
-import { useStore } from "@/store/store";
+import Navbar from "@/components/focus/nav";
 
 function formatDate() {
     const today = new Date();
@@ -43,9 +42,7 @@ export default async function FocusPage() {
         <div className="">
 
             <div className="my-6 mx-10">
-                <Link href="/dashboard">
-                    <button className="rounded-md hover:text-blue-500">Go back to Dashboard</button>
-                </Link>
+                <Navbar />
             </div>
 
             <div className="flex space-x-6">

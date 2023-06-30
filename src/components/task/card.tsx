@@ -153,7 +153,7 @@ export function AddTaskCard({ setTaskList, date }: { setTaskList: Dispatch<SetSt
                 </DialogHeader>
                 <div className="grid gap-4 py-3">
                     <div className="">
-                        <Label htmlFor="name" className="">
+                        <Label className="">
                             Title
                         </Label>
                         <Input id="name" className="my-2 w-4/5" value={title} onChange={(e) => setTitle(e.target.value)} />
@@ -161,14 +161,14 @@ export function AddTaskCard({ setTaskList, date }: { setTaskList: Dispatch<SetSt
 
                     <div className="flex justify-between">
                         <div className="">
-                            <Label htmlFor="name" className="">
+                            <Label className="">
                                 Tag
                             </Label>
                             <SelectTag setTag={setTag} />
                         </div>
 
                         <div className="">
-                            <Label htmlFor="name" className="">
+                            <Label className="">
                                 Duration
                             </Label>
                             <SelectDuration setDuration={setDuration} />
@@ -176,7 +176,7 @@ export function AddTaskCard({ setTaskList, date }: { setTaskList: Dispatch<SetSt
                     </div>
 
                     <div className="">
-                        <Label htmlFor="name" className="">
+                        <Label className="">
                             Priority
                         </Label>
                         <div className="my-2">

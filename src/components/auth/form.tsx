@@ -43,17 +43,17 @@ export function RegisterForm() {
                     <div className="grid w-full items-center gap-4">
 
                         <div className="flex flex-col space-y-1.5">
-                            <Label htmlFor="name">Username</Label>
+                            <Label>Username</Label>
                             <Input id="name" type="text" value={username} onChange={(e) => setUsername(e.target.value)} />
                         </div>
 
                         <div className="flex flex-col space-y-1.5">
-                            <Label htmlFor="name">Email</Label>
+                            <Label>Email</Label>
                             <Input id="email" type="email" value={email} onChange={(e) => setEmail(e.target.value)} />
                         </div>
 
                         <div className="flex flex-col space-y-1.5">
-                            <Label htmlFor="name">Password</Label>
+                            <Label>Password</Label>
                             <Input id="password" type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
                         </div>
 
@@ -104,12 +104,12 @@ export function LoginForm() {
                     <div className="grid w-full items-center gap-4">
 
                         <div className="flex flex-col space-y-1.5">
-                            <Label htmlFor="name">Email</Label>
+                            <Label>Email</Label>
                             <Input id="email" type="email" value={email} onChange={(e) => setEmail(e.target.value)} />
                         </div>
 
                         <div className="flex flex-col space-y-1.5">
-                            <Label htmlFor="name">Password</Label>
+                            <Label>Password</Label>
                             <Input id="password" type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
                         </div>
 

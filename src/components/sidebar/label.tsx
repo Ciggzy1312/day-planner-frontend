@@ -68,14 +68,14 @@ export function AddLabel({ setLabels }: { setLabels: Dispatch<SetStateAction<Lab
             </DialogHeader>
             <div className="grid gap-4 py-3">
                 <div className="">
-                    <Label htmlFor="name" className="">
+                    <Label className="">
                         Name
                     </Label>
                     <Input id="name" className="my-2 w-4/5" value={name} onChange={(e) => setName(e.target.value)} />
                 </div>
 
                 <div className="">
-                    <Label htmlFor="name" className="">
+                    <Label className="">
                         Priority
                     </Label>
                     <div className="my-2">
